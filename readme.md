@@ -14,7 +14,7 @@ This repo demonstrates an AKS node bootstrap pattern where infrastructure logic 
 After the cluster has been created, apply the NGINX workload and then apply the DaemonSet to initialize nodes and remove taints.
 
 ```powershell
-# apply the daemonset to remove taint
+# apply the nginx app deployment
 kubectl apply -f nginx-deployment.yaml
 
 # apply the daemonset to remove taint
