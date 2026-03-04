@@ -1,4 +1,4 @@
-$group = "rg-aks-startup-taints"
+$group = "rg-aks-startup-taint"
 $cluster = "aksstartuptaint"
 $location = "eastus2"
 $userPool = "userpool"
