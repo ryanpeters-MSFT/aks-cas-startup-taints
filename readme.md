@@ -7,16 +7,12 @@ This repo demonstrates an AKS node bootstrap pattern where infrastructure logic 
 ```powershell
 # invoke the script
 .\setup.ps1
-```
 
-`setup.ps1` provisions infrastructure and gets kubeconfig credentials. It does not apply Kubernetes manifests.
-
-After the cluster has been created, apply the NGINX workload and then apply the DaemonSet to initialize nodes and remove taints. The NGINX pods will remain in a `Pending` state until the CAS scales up the nodes and runs the DaemonSet. 
-
-```powershell
 # apply the nginx app deployment and daemonset
-kubectl apply -f startup-taint-remover.yaml -f nginx-deployment.yaml
+kubectl apply -f .\startup-taint-remover.yaml -f .\nginx-deployment.yaml
 ```
+
+
 
 The script creates an AKS cluster with 1 system node. A user node pool (with 0 nodes initially) is added with Cluster Autoscaler enabled (`min=0`, `max=2`) and a taint of `startup-taint.cluster-autoscaler.kubernetes.io/testpodschedule=unavailable:NoSchedule` so sample NGINX pods are blocked until taint removal.
 
