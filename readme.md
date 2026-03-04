@@ -12,15 +12,9 @@ This repo demonstrates an AKS node bootstrap pattern where infrastructure logic 
 kubectl apply -f .\startup-taint-remover.yaml -f .\nginx-deployment.yaml
 ```
 
-
-
 The script creates an AKS cluster with 1 system node. A user node pool (with 0 nodes initially) is added with Cluster Autoscaler enabled (`min=0`, `max=2`) and a taint of `startup-taint.cluster-autoscaler.kubernetes.io/testpodschedule=unavailable:NoSchedule` so sample NGINX pods are blocked until taint removal.
 
 When `startup-taint-remover.yaml` is applied, each daemonset pod first disables `aks-node-validating-webhook` (`validatingwebhookconfiguration`) and then removes the taint from its current node with `kubectl taint nodes ...-`, allowing pending NGINX workloads to schedule.
-
-## Current Setup Behavior
-
-The current `setup.ps1` uses `--node-taints` on the user node pool. It does not currently configure Workload Identity, and it does not use `--node-init-taints` in the active script.
 
 ## What Are Startup Taints?
 
